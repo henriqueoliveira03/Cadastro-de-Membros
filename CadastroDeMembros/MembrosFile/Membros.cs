@@ -1,4 +1,4 @@
-﻿namespace CadastroDeMembros
+﻿namespace CadastroDeMembros.MembrosFile
 {
     public class Membros
     {
