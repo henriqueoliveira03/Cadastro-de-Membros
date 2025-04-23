@@ -1,37 +1,84 @@
-﻿@page "/Membros"
+﻿@page "/membros"
 
-<PageTitle>Weather</PageTitle>
 
-<h1>Weather</h1>
+<PageTitle>Membros</PageTitle>
 
-<p>This component demonstrates fetching data from the server.</p>
+<h1>Membros</h1>
 
-@if (forecasts == null)
+
+
+@if (membros == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
+
+
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@ToggleOpen">Adicionar</MudButton>
     <table class="table">
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>E-mail</th>
+                <th>CPF</th>
+                <th>Data de Nascimento</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @foreach (var membro in membros)
             {
                 <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
+                    <td>@membro.ID</td>
+                    <td>@membro.Nome</td>
+                    <td>@membro.Telefone</td>
+                    <td>@membro.Email</td>
+                    <td>@membro.CPF</td>
+                    <td>@membro.DataDeNascimento.ToString("dd/MM/yyy")</td>
                 </tr>
             }
         </tbody>
     </table>
-}
+    
 
+              
+
+
+            // ESTILIZAÇÃO E CÓDIGO DO POPUP
+
+//<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@ToggleOpen">Open</MudButton>
+   // <MudSwitch @bind-Value="_open" Color="Color.Primary" />
+   // <MudToggleIconButton @bind-Toggled="@_open" Icon="@Icons.Material.Filled.Fullscreen" Color="@Color.Primary" ToggledIcon="@Icons.Material.Filled.FullscreenExit" ToggledColor="@Color.Secondary" />
+
+    <MudPopover Open="@_open" Fixed="true" Class="px-4 pt-4">
+        <div class="d-flex flex-column">
+            
+           
+
+
+
+
+            <MudButton OnClick="@ToggleOpen" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Confirmar</MudButton>
+            <MudButton OnClick="@ToggleOpen" Class="ml-auto mr-n3 mb-1" Color="Color.Error">Cancelar</MudButton>
+
+
+
+
+
+
+        </div>
+    </MudPopover>
+
+    @code 
+   {
+    private bool _open;
+
+    private void ToggleOpen() => _open = !_open;
+   }
+
+
+
+
+}
