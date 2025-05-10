@@ -15,6 +15,9 @@ else
 {
 
 
+   
+
+
     <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@ToggleOpen">Adicionar</MudButton>
     <table class="table">
         <thead>
@@ -36,7 +39,7 @@ else
                     <td>@membro.Telefone</td>
                     <td>@membro.Email</td>
                     <td>@membro.CPF</td>
-                    <td>@membro.DataDeNascimento.ToString("dd/MM/yyy")</td>
+                    <td>@membro.DataDeNascimento</td>
                 </tr>
             }
         </tbody>
@@ -49,10 +52,14 @@ else
             // ESTILIZAÇÃO E CÓDIGO DO POPUP
 
 //<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@ToggleOpen">Open</MudButton>
-   // <MudSwitch @bind-Value="_open" Color="Color.Primary" />
-   // <MudToggleIconButton @bind-Toggled="@_open" Icon="@Icons.Material.Filled.Fullscreen" Color="@Color.Primary" ToggledIcon="@Icons.Material.Filled.FullscreenExit" ToggledColor="@Color.Secondary" />
+  //  <MudSwitch @bind-Value="_open" Color="Color.Primary" />
+    //<MudToggleIconButton @bind-Toggled="@_open" Icon="@Icons.Material.Filled.Fullscreen" Color="@Color.Primary" ToggledIcon="@Icons.Material.Filled.FullscreenExit" ToggledColor="@Color.Secondary" />
 
-    <MudPopover Open="@_open" Fixed="true" Class="px-4 pt-4">
+
+
+
+
+  /* <MudPopover Open="@_open" Fixed="true" Class="px-4 pt-4">
         <div class="d-flex flex-column">
             
            
@@ -71,13 +78,43 @@ else
         </div>
     </MudPopover>
 
-    @code 
+   @code 
    {
     private bool _open;
 
     private void ToggleOpen() => _open = !_open;
    }
+   */
 
+
+
+
+
+
+
+
+
+   // <MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="@OpenDialog">Adicionar</MudButton>
+
+  /*  <MudDialog @bind-IsVisible="_dialogOpen" MaxWidth="MaxWidth.Small">
+        <DialogContent>
+            <MudForm @ref="_form" Valid="true">
+                <MudTextField @bind-Value="_novoMembro.ID" Label="ID" Disabled="true" />
+                <MudTextField @bind-Value="_novoMembro.Nome" Label="Nome" Required="true" />
+                <MudTextField @bind-Value="_novoMembro.Telefone" Label="Telefone" Required="true" />
+                <MudTextField @bind-Value="_novoMembro.Email" Label="E-mail" Required="true" />
+                <MudTextField @bind-Value="_novoMembro.CPF" Label="CPF" Required="true" />
+                <MudDatePicker @bind-Date="_novoMembro.DataDeNascimento" Label="Data de Nascimento" Required="true" />
+            </MudForm>
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="@SalvarMembro" Color="Color.Primary">Salvar</MudButton>
+            <MudButton OnClick="@FecharDialog" Color="Color.Secondary">Cancelar</MudButton>
+        </DialogActions>
+    </MudDialog>
+
+
+    */
 
 
 
