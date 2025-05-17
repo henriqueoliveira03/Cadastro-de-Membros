@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
 using CadastroDeMembros.MembrosFile;
 using MudBlazor;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+
 
 namespace CadastroDeMembros.Blazor.Pages
 {
+
     public partial class MembrosList
     {
         [Inject]
@@ -19,7 +18,7 @@ namespace CadastroDeMembros.Blazor.Pages
         private NavigationManager Navigation { get; set; }
 
         [Parameter]
-        public string ID { get; set; } 
+        public string ID { get; set; }
 
         public List<Membros> membros { get; set; } = new List<Membros>();
 
@@ -41,23 +40,67 @@ namespace CadastroDeMembros.Blazor.Pages
             await base.OnInitializedAsync();
         }
 
-      
 
-       
+
+
+        /*    public async Task ToggleOpen()
+            {
+                membros.Add(new Membros
+                {
+                    ID = 1,
+                    Nome = "João da Silva",
+                    Telefone = "(21) 999999999",
+                    Email = "joaodasilva@gmail.com",
+                    CPF = "000.000.000-00",
+                    DataDeNascimento = DateTime.Parse("13/03/2001")
+                });
+
+                await Task.CompletedTask;
+            }*/
+
 
         public async Task ToggleOpen()
         {
-            membros.Add(new Membros
+            var parameters = new DialogParameters
             {
-                ID = 1,
-                Nome = "João da Silva",
-                Telefone = "(21) 999999999",
-                Email = "joaodasilva@gmail.com",
-                CPF = "000.000.000-00",
-                DataDeNascimento = DateTime.Parse("13/03/2001")
-            });
+                ["membro"] = new Membros()
+            };
 
-            await Task.CompletedTask;
+            var options = new DialogOptions
+            {
+                CloseOnEscapeKey = true 
+            };
+            var dialog = DialogService.Show<Cadastro>("", parameters, options);
+            var result = await dialog.Result;
+
+
+
+            if (!result.Canceled && result.Data is Membros novoMembro)
+            {
+               
+                novoMembro.ID = membros.Count > 0 ? membros.Max(m => m.ID) + 1 : 1;
+                membros.Add(novoMembro);
+                StateHasChanged();
+            }
         }
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
 }

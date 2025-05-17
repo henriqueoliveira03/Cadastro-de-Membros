@@ -1,0 +1,41 @@
+﻿@using CadastroDeMembros.MembrosFile
+
+<MudDialog>
+    <DialogContent>
+        <MudTextField @bind-Value="membro.ID" Label="ID" Required="true" />
+        <MudTextField @bind-Value="membro.Nome" Label="Nome" Required="true" />
+        <MudTextField @bind-Value="membro.Telefone" Label="Telefone" />
+        <MudTextField @bind-Value="membro.Email" Label="Email" />
+        <MudTextField @bind-Value="membro.CPF" Label="CPF" />
+        <MudDatePicker @bind-Date="membro.DataDeNascimento" Label="Data de Nascimento" />
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="e=>Salvar()" Color="Color.Primary">Salvar</MudButton>
+        <MudButton OnClick="e=>Cancelar()" Color="Color.Secondary">Cancelar</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
