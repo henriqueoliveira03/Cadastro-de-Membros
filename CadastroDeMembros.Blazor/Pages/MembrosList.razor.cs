@@ -59,18 +59,17 @@ namespace CadastroDeMembros.Blazor.Pages
             }*/
 
 
-        public async Task ToggleOpen()
+        public async Task OpenPoup(Membros membro= null)
         {
             var parameters = new DialogParameters
             {
-                ["membro"] = new Membros()
+                {"membro", membro ?? new Membros()  }
             };
 
-            var options = new DialogOptions
-            {
-                CloseOnEscapeKey = true 
-            };
+            var options = new DialogOptions  {  CloseOnEscapeKey = true, FullWidth= true  };
+
             var dialog = DialogService.Show<Cadastro>("", parameters, options);
+
             var result = await dialog.Result;
 
 
@@ -83,6 +82,8 @@ namespace CadastroDeMembros.Blazor.Pages
                 StateHasChanged();
             }
         }
+
+
 
 
 
