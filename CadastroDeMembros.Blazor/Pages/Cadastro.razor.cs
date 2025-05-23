@@ -6,21 +6,27 @@ namespace CadastroDeMembros.Blazor.Pages
 {
     public partial class Cadastro
     {
-        [CascadingParameter] public IDialogReference MudDialog { get; set; }
-        [Parameter] public Membros membro { get; set; } = new();
+        [Inject]
+        public HttpClient HttpClient { get; set; }
 
-       public async Task Salvar()
+        [Parameter] 
+        public Membros membro { get; set; }
+
+        [Parameter]
+        public bool PodeRemover { get; set; } = false;
+
+        protected override async Task OnInitializedAsync()
         {
-            Console.WriteLine("salvou");
-
-
+            await base.OnInitializedAsync();
+        }
+        public async Task Salvar()
+        {
+            await Task.CompletedTask;
         }
 
         public async Task Cancelar()
         {
-            Console.WriteLine("cancelou");
-
-
+            await Task.CompletedTask;
         }
 
 
