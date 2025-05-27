@@ -12,8 +12,8 @@
         <MudDatePicker @bind-Date="membro.DataDeNascimento" Label="Data de Nascimento" />
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="e=>Salvar()" Color="Color.Primary">Salvar</MudButton>
-        <MudButton OnClick="e=>Cancelar()" Color="Color.Secondary">Cancelar</MudButton>
+        <MudButton OnClick="async()=> await Salvar()" Color="Color.Primary">Salvar</MudButton>
+        <MudButton OnClick="async()=> await Cancelar()" Color="Color.Secondary">Cancelar</MudButton>
     </DialogActions>
 </MudDialog>
 

@@ -59,32 +59,40 @@ namespace CadastroDeMembros.Blazor.Pages
             }*/
 
 
-        public async Task OpenPoup(Membros membro= null)
+        public async Task OpenPoup(Membros membro = null, bool podeRemover = false)
         {
             var parameters = new DialogParameters
             {
-                {"membro", membro ?? new Membros()  }
+                {"membro", membro ?? new Membros() },
+                {"podeRemover", podeRemover }
             };
-
-            var options = new DialogOptions  {  CloseOnEscapeKey = true, FullWidth= true  };
-
-            var dialog = DialogService.Show<Cadastro>("", parameters, options);
-
-            var result = await dialog.Result;
-
-
-
-            if (!result.Canceled && result.Data is Membros novoMembro)
+            var options = new DialogOptions { CloseOnEscapeKey = true, FullWidth = true, CloseButton = true, BackdropClick= true };
+            var dialogReference = await DialogService.ShowAsync<Cadastro>("", parameters, options);
+            var result = await dialogReference.Result;
+            if (!result.Canceled)
             {
-               
-                novoMembro.ID = membros.Count > 0 ? membros.Max(m => m.ID) + 1 : 1;
-                membros.Add(novoMembro);
+                var membroSalvo = result.Data as Membros;
+                if (podeRemover)
+                {
+                    membros = membros.Where(n => n.ID != membro.ID).ToList();
+                }
+                else
+                {
+                    // Se é um membro existente, atualiza
+                    if (membro != null && membros.Any(m => m.ID == membro.ID))
+                    {
+                        var index = membros.FindIndex(m => m.ID == membro.ID);
+                        membros[index] = membroSalvo;
+                    }
+                    // Se é um membro novo, adiciona à lista
+                    else
+                    {
+                        membros.Add(membroSalvo);
+                    }
+                }
                 StateHasChanged();
             }
         }
-
-
-
 
 
 
