@@ -23,7 +23,7 @@ namespace CadastroDeMembros.Blazor.Pages
         public List<Membros> membros { get; set; } = new List<Membros>();
 
 
-        protected override async Task OnInitializedAsync()
+      /*  protected override async Task OnInitializedAsync()
         {
             membros = new List<Membros>
             {
@@ -38,7 +38,7 @@ namespace CadastroDeMembros.Blazor.Pages
                 }
             };
             await base.OnInitializedAsync();
-        }
+        }*/
 
 
 
@@ -69,29 +69,64 @@ namespace CadastroDeMembros.Blazor.Pages
             var options = new DialogOptions { CloseOnEscapeKey = true, FullWidth = true, CloseButton = true, BackdropClick= true };
             var dialogReference = await DialogService.ShowAsync<Cadastro>("", parameters, options);
             var result = await dialogReference.Result;
-            if (!result.Canceled)
+
+       /*    
+         if (!result.Canceled)
             {
-                var membroSalvo = result.Data as Membros;
                 if (podeRemover)
-                {
-                    membros = membros.Where(n => n.ID != membro.ID).ToList();
-                }
+                    membros = membros.Where(m => m.ID != membro.ID).ToList();
                 else
                 {
-                    // Se é um membro existente, atualiza
-                    if (membro != null && membros.Any(m => m.ID == membro.ID))
-                    {
-                        var index = membros.FindIndex(m => m.ID == membro.ID);
-                        membros[index] = membroSalvo;
-                    }
-                    // Se é um membro novo, adiciona à lista
-                    else
-                    {
-                        membros.Add(membroSalvo);
+                    if(membro==null)
+                    { membros.Add(result.Data as Membros);
                     }
                 }
                 StateHasChanged();
             }
+
+          */
+
+
+
+
+              if (!result.Canceled)
+              {
+                  var membroSalvo = result.Data as Membros;
+                  if (podeRemover)
+                  {
+                      membros = membros.Where(n => n.ID != membro.ID).ToList();
+                  }
+                  else
+                  {
+                      // Se é um membro existente, atualiza
+                      if (membro != null && membros.Any(m => m.ID == membro.ID))
+                      {
+                          var index = membros.FindIndex(m => m.ID == membro.ID);
+                          membros[index] = membroSalvo;
+                      }
+                      // Se é um membro novo, adiciona à lista
+                      else
+                      {
+                          membros.Add(membroSalvo);
+                      }
+                  }
+                  StateHasChanged();
+              }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
 
