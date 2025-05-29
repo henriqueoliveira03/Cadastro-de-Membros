@@ -2,10 +2,8 @@
 using CadastroDeMembros.MembrosFile;
 using MudBlazor;
 
-
 namespace CadastroDeMembros.Blazor.Pages
 {
-
     public partial class MembrosList
     {
         [Inject]
@@ -22,129 +20,49 @@ namespace CadastroDeMembros.Blazor.Pages
 
         public List<Membros> membros { get; set; } = new List<Membros>();
 
-
-      /*  protected override async Task OnInitializedAsync()
-        {
-            membros = new List<Membros>
-            {
-                new Membros
-                {
-                    ID = 1,
-                    Nome = "João da Silva",
-                    Telefone = "(21) 999999999",
-                    Email = "joaodasilva@gmail.com",
-                    CPF = "000.000.000-00",
-                    DataDeNascimento = DateTime.Parse("13/03/2001")
-                }
-            };
-            await base.OnInitializedAsync();
-        }*/
-
-
-
-
-        /*    public async Task ToggleOpen()
-            {
-                membros.Add(new Membros
-                {
-                    ID = 1,
-                    Nome = "João da Silva",
-                    Telefone = "(21) 999999999",
-                    Email = "joaodasilva@gmail.com",
-                    CPF = "000.000.000-00",
-                    DataDeNascimento = DateTime.Parse("13/03/2001")
-                });
-
-                await Task.CompletedTask;
-            }*/
-
-
         public async Task OpenPoup(Membros membro = null, bool podeRemover = false)
         {
             var parameters = new DialogParameters
             {
-                {"membro", membro ?? new Membros() },
+                {"membro", membro != null ? new Membros
+                    {
+                        ID = membro.ID,
+                        Nome = membro.Nome,
+                        Telefone = membro.Telefone,
+                        Email = membro.Email,
+                        CPF = membro.CPF,
+                        DataDeNascimento = membro.DataDeNascimento
+                    } : new Membros() },
                 {"podeRemover", podeRemover }
             };
-            var options = new DialogOptions { CloseOnEscapeKey = true, FullWidth = true, CloseButton = true, BackdropClick= true };
+            var options = new DialogOptions { CloseOnEscapeKey = true, FullWidth = true, CloseButton = true, BackdropClick = true };
             var dialogReference = await DialogService.ShowAsync<Cadastro>("", parameters, options);
             var result = await dialogReference.Result;
 
-       /*    
-         if (!result.Canceled)
+            if (!result.Canceled)
             {
-                if (podeRemover)
-                    membros = membros.Where(m => m.ID != membro.ID).ToList();
+                var membroSalvo = result.Data as Membros;
+                if (podeRemover && membro != null)
+                {
+                    membros.RemoveAll(m => m.ID == membro.ID);
+                }
                 else
                 {
-                    if(membro==null)
-                    { membros.Add(result.Data as Membros);
+                    if (membro != null)
+                    {
+                        var index = membros.FindIndex(m => m.ID == membro.ID);
+                        if (index >= 0)
+                        {
+                            membros[index] = membroSalvo;
+                        }
+                    }
+                    else
+                    {
+                        membros.Add(membroSalvo);
                     }
                 }
                 StateHasChanged();
             }
-
-          */
-
-
-
-
-              if (!result.Canceled)
-              {
-                  var membroSalvo = result.Data as Membros;
-                  if (podeRemover)
-                  {
-                      membros = membros.Where(n => n.ID != membro.ID).ToList();
-                  }
-                  else
-                  {
-                      // Se é um membro existente, atualiza
-                      if (membro != null && membros.Any(m => m.ID == membro.ID))
-                      {
-                          var index = membros.FindIndex(m => m.ID == membro.ID);
-                          membros[index] = membroSalvo;
-                      }
-                      // Se é um membro novo, adiciona à lista
-                      else
-                      {
-                          membros.Add(membroSalvo);
-                      }
-                  }
-                  StateHasChanged();
-              }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }

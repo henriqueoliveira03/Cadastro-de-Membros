@@ -34,8 +34,6 @@ namespace CadastroDeMembros.Blazor.Pages
               await Task.CompletedTask;
           }
 
-      /*  private void Salvar() => MudDialog.Close(DialogResult.Ok(membro));
-      */
 
         public async Task Cancelar()
         {
